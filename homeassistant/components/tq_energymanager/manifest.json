@@ -1,0 +1,20 @@
+{
+  "domain": "tq_energymanager",
+  "name": "TQ-Automation",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/tq_energymanager",
+  "requirements": [],
+  "ssdp": [
+	  {
+		"manufacturer": "B-control",
+		"deviceType": "upnp:rootdevice",
+		"modelName": "Energy Manager 300"
+	  }
+  ],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@stieler-it"
+  ]
+}

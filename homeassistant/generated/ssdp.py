@@ -171,6 +171,13 @@ SSDP = {
             "manufacturer": "Synology"
         }
     ],
+    "tq_energymanager": [
+        {
+            "deviceType": "upnp:rootdevice",
+            "manufacturer": "B-control",
+            "modelName": "Energy Manager 300"
+        }
+    ],
     "unifi": [
         {
             "deviceType": "urn:schemas-upnp-org:device:InternetGatewayDevice:1",
