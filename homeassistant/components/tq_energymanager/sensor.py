@@ -24,38 +24,12 @@ async def async_setup_entry(
         DATA_COORDINATOR
     ]
 
-    # TODO: we could check coordinator.data for the initial response (if some entries are not always present)
-
     entities = []
 
     for sensor in SENSOR_TYPES:
         entities.append(EnergyMeterSensor(coordinator, sensor))
 
-    # entities.append(
-    #    EnergyMeterSensor(coordinator, TQDATA_ACTIVE_POWER_INCOMING, POWER_WATT)
-    # )
-    # entities.append(
-    #    EnergyMeterSensor(coordinator, TQDATA_ACTIVE_POWER_MINUS, POWER_WATT)
-    # )
-
-    # Fetch initial data so we have data when entities subscribe
-    # await coordinator.async_refresh()
-
     async_add_entities(entities, True)
-    #    EnergyMeterSensor(coordinator, key, POWER_WATT)
-    #    for key, entity in enumerate(coordinator.data)
-    # )
-    # async_add_entities([EnergyMeterSensor()])
-    # add_entities(AwesomeLight(light) for light in hub.lights())
-
-
-# async def async_setup_entry(
-#    hass: HomeAssistantType, config_entry: ConfigEntry, async_add_entities
-# ) -> None:
-#    """Setup the sensor platform by config entry."""
-#    return await async_setup_platform(
-#        hass, config_entry.data, async_add_entities, discovery_info=None
-#    )
 
 
 class EnergyMeterSensor(CoordinatorEntity, Entity):
@@ -64,6 +38,7 @@ class EnergyMeterSensor(CoordinatorEntity, Entity):
     def __init__(self, coordinator: DataUpdateCoordinator, sensor: SensorTypeEntry):
         """Initialize the sensor."""
         self.friendly_name = sensor.friendly_name
+        self._device_class = sensor.device_class
         self.data_key = sensor.data_key
         self._unit_of_measurement = sensor.unit_of_measurement
 
@@ -73,6 +48,11 @@ class EnergyMeterSensor(CoordinatorEntity, Entity):
     def name(self):
         """Return the name of the sensor."""
         return "TQ " + self.friendly_name
+
+    @property
+    def device_class(self):
+        """Return the devices' class."""
+        return self._device_class
 
     @property
     def state(self):

@@ -3,6 +3,7 @@ import logging
 from typing import Any, Mapping
 from urllib.parse import urlparse
 
+import requests
 import voluptuous as vol
 
 from homeassistant import config_entries, core, exceptions
@@ -24,25 +25,18 @@ async def validate_input(hass: core.HomeAssistant, data):
 
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
-    # TODO validate the data can be used to set up a connection.
-
-    # If your PyPI package is not built with async, pass your methods
-    # to the executor:
-    # await hass.async_add_executor_job(
-    #     your_validate_func, data["username"], data["password"]
-    # )
 
     client = TqEnergyManagerJsonApi(
         data[CONF_HOST], data[CONF_SERIALNUMBER], data[CONF_PASSWORD]
     )
 
-    if not await hass.async_add_executor_job(client.login):
-        raise InvalidAuth
-
-    # If you cannot connect:
-    # throw CannotConnect
-    # If the authentication is wrong:
-    # InvalidAuth
+    try:
+        # Since API is not async, we pass it to the executor
+        response = await hass.async_add_executor_job(client.login)
+        if not response:
+            raise InvalidAuth
+    except requests.exceptions.ConnectionError:
+        raise CannotConnect
 
     # Return info that you want to store in the config entry.
     return {"title": "Energy Manager 300"}

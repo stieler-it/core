@@ -28,19 +28,16 @@ class TqEnergyManagerJsonApi:
         # Initial handshake
 
         r1 = self.session.get("http://" + self.hostname + "/start.php", headers=HEADERS)
-        if r1.status_code == requests.codes.ok:
-            pass
-        else:
-            Error_Connecting = r1.status_code
-            print("Unable to connect :", Error_Connecting)
+        if r1.status_code != requests.codes.ok:
+            return False
 
-        myparams = {
+        login_params = {
             "login": self.serialNumber,
             "password": self.password,
             "save_login": "1",
         }
         r2 = self.session.post(
-            "http://" + self.hostname + "/start.php", myparams, headers=HEADERS
+            "http://" + self.hostname + "/start.php", login_params, headers=HEADERS
         )
 
         return r2.status_code == requests.codes.ok
