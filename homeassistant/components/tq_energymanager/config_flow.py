@@ -4,13 +4,13 @@ from typing import Any, Mapping
 from urllib.parse import urlparse
 
 import requests
+from tqenergymanager300.tqenergymanager300 import TqEnergyManagerJsonClient
 import voluptuous as vol
 
 from homeassistant import config_entries, core, exceptions
 from homeassistant.components import ssdp
 from homeassistant.const import CONF_HOST, CONF_PASSWORD
 
-from .api import TqEnergyManagerJsonApi
 from .const import CONF_SERIALNUMBER, DOMAIN  # pylint:disable=unused-import
 
 _LOGGER = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ async def validate_input(hass: core.HomeAssistant, data):
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
 
-    client = TqEnergyManagerJsonApi(
+    client = TqEnergyManagerJsonClient(
         data[CONF_HOST], data[CONF_SERIALNUMBER], data[CONF_PASSWORD]
     )
 
