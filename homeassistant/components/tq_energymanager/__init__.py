@@ -4,6 +4,7 @@ from datetime import timedelta
 import logging
 
 import async_timeout
+from tqenergymanager300.tqenergymanager300 import TqEnergyManagerJsonClient
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PASSWORD
@@ -11,7 +12,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import TqEnergyManagerJsonApi
 from .const import CONF_SERIALNUMBER, DATA_CLIENT, DATA_COORDINATOR, DOMAIN
 
 PLATFORMS = ["sensor"]
@@ -29,7 +29,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # TODO Store an API object for your platforms to access
     # hass.data[DOMAIN][entry.entry_id] = MyApi(...)
 
-    client = TqEnergyManagerJsonApi(
+    client = TqEnergyManagerJsonClient(
         entry.data[CONF_HOST],
         entry.data[CONF_SERIALNUMBER],
         entry.data[CONF_PASSWORD],

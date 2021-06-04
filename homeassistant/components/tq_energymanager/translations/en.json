@@ -15,6 +15,12 @@
                     "password": "Password",
                     "serialnumber": "Serial number"
                 }
+            },
+            "ssdp_user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password"
+                }
             }
         }
     },

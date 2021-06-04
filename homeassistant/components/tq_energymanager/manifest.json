@@ -3,7 +3,7 @@
   "name": "TQ-Automation",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/tq_energymanager",
-  "requirements": [],
+  "requirements": ["tqenergymanager300==0.0.2"],
   "ssdp": [
 	  {
 		"manufacturer": "B-control",

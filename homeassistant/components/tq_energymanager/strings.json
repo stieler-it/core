@@ -5,7 +5,13 @@
       "user": {
         "data": {
           "host": "[%key:common::config_flow::data::host%]",
-          "serialnumber": "[%key:common::config_flow::data::username%]",
+          "serialnumber": "Serial number",
+          "password": "[%key:common::config_flow::data::password%]"
+        }
+      },
+      "ssdp_user": {
+        "data": {
+          "host": "[%key:common::config_flow::data::host%]",
           "password": "[%key:common::config_flow::data::password%]"
         }
       }
