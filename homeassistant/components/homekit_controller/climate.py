@@ -36,7 +36,7 @@ from homeassistant.components.climate.const import (
     SWING_OFF,
     SWING_VERTICAL,
 )
-from homeassistant.const import ATTR_TEMPERATURE, TEMP_CELSIUS
+from homeassistant.const import ATTR_TEMPERATURE, PRECISION_TENTHS, TEMP_CELSIUS
 from homeassistant.core import callback
 
 from . import KNOWN_DEVICES, HomeKitEntity
@@ -132,8 +132,8 @@ class HomeKitHeaterCoolerEntity(HomeKitEntity, ClimateEntity):
         else:
             hvac_mode = TARGET_HEATER_COOLER_STATE_HOMEKIT_TO_HASS.get(state)
             _LOGGER.warning(
-                "HomeKit device %s: Setting temperature in %s mode is not supported yet."
-                " Consider raising a ticket if you have this device and want to help us implement this feature.",
+                "HomeKit device %s: Setting temperature in %s mode is not supported yet;"
+                " Consider raising a ticket if you have this device and want to help us implement this feature",
                 self.entity_id,
                 hvac_mode,
             )
@@ -147,8 +147,8 @@ class HomeKitHeaterCoolerEntity(HomeKitEntity, ClimateEntity):
             return
         if hvac_mode not in {HVAC_MODE_HEAT, HVAC_MODE_COOL}:
             _LOGGER.warning(
-                "HomeKit device %s: Setting temperature in %s mode is not supported yet."
-                " Consider raising a ticket if you have this device and want to help us implement this feature.",
+                "HomeKit device %s: Setting temperature in %s mode is not supported yet;"
+                " Consider raising a ticket if you have this device and want to help us implement this feature",
                 self.entity_id,
                 hvac_mode,
             )
@@ -322,6 +322,11 @@ class HomeKitHeaterCoolerEntity(HomeKitEntity, ClimateEntity):
     def temperature_unit(self):
         """Return the unit of measurement."""
         return TEMP_CELSIUS
+
+    @property
+    def precision(self):
+        """Return the precision of the system."""
+        return PRECISION_TENTHS
 
 
 class HomeKitClimateEntity(HomeKitEntity, ClimateEntity):
@@ -535,6 +540,11 @@ class HomeKitClimateEntity(HomeKitEntity, ClimateEntity):
     def temperature_unit(self):
         """Return the unit of measurement."""
         return TEMP_CELSIUS
+
+    @property
+    def precision(self):
+        """Return the precision of the system."""
+        return PRECISION_TENTHS
 
 
 ENTITY_TYPES = {

@@ -284,7 +284,7 @@ class TodoistProjectDevice(CalendarEventDevice):
         return await self.data.async_get_events(hass, start_date, end_date)
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the device state attributes."""
         if self.data.event is None:
             # No tasks, we don't REALLY need to show anything.
@@ -385,7 +385,7 @@ class TodoistProjectData:
         task[SUMMARY] = data[CONTENT]
         task[COMPLETED] = data[CHECKED] == 1
         task[PRIORITY] = data[PRIORITY]
-        task[DESCRIPTION] = "https://todoist.com/showTask?id={}".format(data[ID])
+        task[DESCRIPTION] = f"https://todoist.com/showTask?id={data[ID]}"
 
         # All task Labels (optional parameter).
         task[LABELS] = [
