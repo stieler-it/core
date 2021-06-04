@@ -16,5 +16,6 @@
   "dependencies": [],
   "codeowners": [
     "@stieler-it"
-  ]
+  ],
+  "iot_class": "local_polling"
 }
