@@ -424,6 +424,7 @@ FLOWS = {
         "toon",
         "totalconnect",
         "tplink",
+        "tq_energymanager",
         "traccar",
         "tractive",
         "tradfri",

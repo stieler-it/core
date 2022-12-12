@@ -5571,6 +5571,11 @@
       "config_flow": false,
       "iot_class": "local_polling"
     },
+    "tq_energymanager": {
+      "integration_type": "hub",
+      "config_flow": true,
+      "iot_class": "local_polling"
+    },
     "traccar": {
       "name": "Traccar",
       "integration_type": "hub",
@@ -6432,6 +6437,7 @@
     "tag",
     "threshold",
     "tod",
+    "tq_energymanager",
     "uptime",
     "utility_meter",
     "waze_travel_time"

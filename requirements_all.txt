@@ -2465,6 +2465,9 @@ total_connect_client==2022.10
 # homeassistant.components.tplink_lte
 tp-connected==0.0.4
 
+# homeassistant.components.tq_energymanager
+tqenergymanager300==0.0.2
+
 # homeassistant.components.transmission
 transmissionrpc==0.11
 

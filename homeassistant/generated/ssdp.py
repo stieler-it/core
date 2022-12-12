@@ -271,6 +271,13 @@ SSDP = {
             "manufacturer": "Synology",
         },
     ],
+    "tq_energymanager": [
+        {
+            "deviceType": "upnp:rootdevice",
+            "manufacturer": "B-control",
+            "modelName": "Energy Manager 300",
+        },
+    ],
     "unifi": [
         {
             "manufacturer": "Ubiquiti Networks",
