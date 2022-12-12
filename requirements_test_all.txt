@@ -364,7 +364,7 @@ blinkpy==0.19.2
 bluemaestro-ble==0.2.0
 
 # homeassistant.components.bluetooth
-bluetooth-adapters==0.12.0
+bluetooth-adapters==0.14.1
 
 # homeassistant.components.bluetooth
 bluetooth-auto-recovery==0.5.5
@@ -574,6 +574,7 @@ georss_ign_sismologia_client==0.3
 # homeassistant.components.qld_bushfire
 georss_qld_bushfire_alert_client==0.5
 
+# homeassistant.components.dlna_dmr
 # homeassistant.components.kef
 # homeassistant.components.minecraft_server
 # homeassistant.components.nmap_tracker
