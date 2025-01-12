@@ -1,8 +1,13 @@
 {
   "domain": "tq_energymanager",
   "name": "TQ-Automation",
+  "codeowners": ["@stieler-it"],
   "config_flow": true,
+  "dependencies": [],
   "documentation": "https://www.home-assistant.io/integrations/tq_energymanager",
+  "homekit": {},
+  "integration_type": "device",
+  "iot_class": "local_polling",
   "requirements": ["tqenergymanager300==0.0.2"],
   "ssdp": [
     {
@@ -11,9 +16,5 @@
       "modelName": "Energy Manager 300"
     }
   ],
-  "zeroconf": [],
-  "homekit": {},
-  "dependencies": [],
-  "codeowners": ["@stieler-it"],
-  "iot_class": "local_polling"
+  "zeroconf": []
 }

@@ -1,4 +1,5 @@
 """The GeoNet NZ Quakes integration."""
+
 from datetime import timedelta
 import logging
 
@@ -11,8 +12,7 @@ from homeassistant.const import (
     CONF_LONGITUDE,
     CONF_RADIUS,
     CONF_SCAN_INTERVAL,
-    LENGTH_KILOMETERS,
-    LENGTH_MILES,
+    UnitOfLength,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import aiohttp_client, config_validation as cv
@@ -96,7 +96,9 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     radius = config_entry.data[CONF_RADIUS]
     if hass.config.units is US_CUSTOMARY_SYSTEM:
-        radius = DistanceConverter.convert(radius, LENGTH_MILES, LENGTH_KILOMETERS)
+        radius = DistanceConverter.convert(
+            radius, UnitOfLength.MILES, UnitOfLength.KILOMETERS
+        )
     # Create feed entity manager for all platforms.
     manager = GeonetnzQuakesFeedEntityManager(hass, config_entry, radius)
     feeds[config_entry.entry_id] = manager

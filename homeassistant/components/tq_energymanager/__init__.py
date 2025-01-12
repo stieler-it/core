@@ -1,15 +1,17 @@
 """The tq_energymanager integration."""
+
 import asyncio
 from datetime import timedelta
 import logging
 
-import async_timeout
 from tqenergymanager300.tqenergymanager300 import TqEnergyManagerJsonClient
+import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PASSWORD
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
+import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
@@ -18,6 +20,19 @@ from .const import CONF_SERIALNUMBER, DATA_CLIENT, DATA_COORDINATOR, DOMAIN
 PLATFORMS = ["sensor"]
 
 _LOGGER = logging.getLogger(__name__)
+
+CONFIG_SCHEMA = vol.Schema(
+    {
+        DOMAIN: vol.Schema(
+            {
+                vol.Required(CONF_HOST): cv.string,
+                vol.Required(CONF_SERIALNUMBER): cv.string,
+                vol.Required(CONF_PASSWORD): cv.string,
+            }
+        )
+    },
+    extra=vol.REMOVE_EXTRA,
+)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
@@ -44,7 +59,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     async def async_update_data() -> dict:
         """Fetch data from TQ Energy Manager."""
-        async with async_timeout.timeout(10):
+        async with asyncio.timeout(10):
             try:
                 return await hass.async_add_executor_job(client.fetch_data)
                 # return await client.fetch_data()

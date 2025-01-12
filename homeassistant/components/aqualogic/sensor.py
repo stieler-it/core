@@ -1,4 +1,5 @@
 """Support for AquaLogic sensors."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -6,7 +7,7 @@ from dataclasses import dataclass
 import voluptuous as vol
 
 from homeassistant.components.sensor import (
-    PLATFORM_SCHEMA,
+    PLATFORM_SCHEMA as SENSOR_PLATFORM_SCHEMA,
     SensorDeviceClass,
     SensorEntity,
     SensorEntityDescription,
@@ -14,9 +15,8 @@ from homeassistant.components.sensor import (
 from homeassistant.const import (
     CONF_MONITORED_CONDITIONS,
     PERCENTAGE,
-    POWER_WATT,
-    TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
+    UnitOfPower,
+    UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, callback
 import homeassistant.helpers.config_validation as cv
@@ -27,7 +27,7 @@ from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from . import DOMAIN, UPDATE_TOPIC, AquaLogicProcessor
 
 
-@dataclass
+@dataclass(frozen=True)
 class AquaLogicSensorEntityDescription(SensorEntityDescription):
     """Describes AquaLogic sensor entity."""
 
@@ -40,23 +40,23 @@ SENSOR_TYPES: tuple[AquaLogicSensorEntityDescription, ...] = (
     AquaLogicSensorEntityDescription(
         key="air_temp",
         name="Air Temperature",
-        unit_metric=TEMP_CELSIUS,
-        unit_imperial=TEMP_FAHRENHEIT,
+        unit_metric=UnitOfTemperature.CELSIUS,
+        unit_imperial=UnitOfTemperature.FAHRENHEIT,
         device_class=SensorDeviceClass.TEMPERATURE,
     ),
     AquaLogicSensorEntityDescription(
         key="pool_temp",
         name="Pool Temperature",
-        unit_metric=TEMP_CELSIUS,
-        unit_imperial=TEMP_FAHRENHEIT,
+        unit_metric=UnitOfTemperature.CELSIUS,
+        unit_imperial=UnitOfTemperature.FAHRENHEIT,
         icon="mdi:oil-temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
     ),
     AquaLogicSensorEntityDescription(
         key="spa_temp",
         name="Spa Temperature",
-        unit_metric=TEMP_CELSIUS,
-        unit_imperial=TEMP_FAHRENHEIT,
+        unit_metric=UnitOfTemperature.CELSIUS,
+        unit_imperial=UnitOfTemperature.FAHRENHEIT,
         icon="mdi:oil-temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
     ),
@@ -91,9 +91,9 @@ SENSOR_TYPES: tuple[AquaLogicSensorEntityDescription, ...] = (
     AquaLogicSensorEntityDescription(
         key="pump_power",
         name="Pump Power",
-        unit_metric=POWER_WATT,
-        unit_imperial=POWER_WATT,
-        icon="mdi:gauge",
+        unit_metric=UnitOfPower.WATT,
+        unit_imperial=UnitOfPower.WATT,
+        device_class=SensorDeviceClass.POWER,
     ),
     AquaLogicSensorEntityDescription(
         key="status",
@@ -104,7 +104,7 @@ SENSOR_TYPES: tuple[AquaLogicSensorEntityDescription, ...] = (
 
 SENSOR_KEYS: list[str] = [desc.key for desc in SENSOR_TYPES]
 
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
+PLATFORM_SCHEMA = SENSOR_PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_MONITORED_CONDITIONS, default=SENSOR_KEYS): vol.All(
             cv.ensure_list, [vol.In(SENSOR_KEYS)]

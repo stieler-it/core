@@ -9,6 +9,12 @@
             "unknown": "Unexpected error"
         },
         "step": {
+            "ssdp_user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password"
+                }
+            },
             "user": {
                 "data": {
                     "host": "Host",
